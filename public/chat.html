@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Org Chat - Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="chat-container">
+    <!-- Sidebar: Users List -->
+    <div class="sidebar">
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <h5 class="mb-0">🏢 Org Chat</h5>
+        <button class="btn btn-sm btn-outline-light" id="logout-btn">Logout</button>
+      </div>
+
+      <!-- Current User Info -->
+      <div class="current-user-info">
+        <strong id="current-username">Loading...</strong>
+        <span class="badge bg-success">Online</span>
+      </div>
+
+      <!-- Online Users List -->
+      <div class="users-section">
+        <h6 class="text-muted px-3 mb-2">Online Users</h6>
+        <div id="users-list" class="list-group list-group-flush">
+          <!-- Users will be loaded here dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Chat Area -->
+    <div class="chat-main">
+      <!-- Chat Header -->
+      <div class="chat-header" id="chat-header">
+        <div class="text-center text-muted py-5">
+          <h5>Select a user to start chatting</h5>
+        </div>
+      </div>
+
+      <!-- Messages Container -->
+      <div class="messages-container" id="messages-container">
+        <div class="text-center text-muted py-5">
+          <p>No conversation selected</p>
+        </div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="typing-indicator" id="typing-indicator" style="display: none;">
+        <span id="typing-username"></span> is typing
+        <span class="typing-dots">
+          <span>.</span><span>.</span><span>.</span>
+        </span>
+      </div>
+
+      <!-- Message Input -->
+      <div class="message-input-container" id="message-input-container" style="display: none;">
+        <form id="message-form" class="d-flex gap-2">
+          <input 
+            type="text" 
+            class="form-control" 
+            id="message-input" 
+            placeholder="Type a message..." 
+            autocomplete="off"
+          >
+          <button type="submit" class="btn btn-primary px-4">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Socket.IO Client -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Chat Application Logic -->
+  <script src="/js/chat.js"></script>
+</body>
+</html>

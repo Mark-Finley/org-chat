@@ -1,0 +1,327 @@
+/**
+ * Custom Styles for Org Chat Application
+ * Author: MarkFinley
+ */
+
+/* General Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Login Page Styles */
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+/* Chat Container Layout */
+.chat-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 300px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #34495e;
+}
+
+.sidebar-header {
+  padding: 20px;
+  background-color: #34495e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #2c3e50;
+}
+
+.sidebar-header h5 {
+  color: white;
+}
+
+.current-user-info {
+  padding: 15px 20px;
+  background-color: #34495e;
+  border-bottom: 1px solid #2c3e50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.users-section {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 10px;
+}
+
+.users-section h6 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* User List Items */
+.user-item {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: white;
+  padding: 12px 20px;
+  transition: background-color 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.user-item:hover {
+  background-color: #34495e;
+  color: white;
+}
+
+.user-item.active {
+  background-color: #3498db;
+  border-left-color: #2980b9;
+  color: white;
+}
+
+/* Status Indicator */
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-indicator.online {
+  background-color: #27ae60;
+}
+
+.status-indicator.offline {
+  background-color: #95a5a6;
+}
+
+/* Main Chat Area */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.chat-header {
+  padding: 20px 25px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+/* Messages Container */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 25px;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Individual Message Styles */
+.message {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.message-sent {
+  justify-content: flex-end;
+}
+
+.message-received {
+  justify-content: flex-start;
+}
+
+.message-content {
+  max-width: 60%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
+
+.message-sent .message-content {
+  background-color: #3498db;
+  color: white;
+  border-bottom-right-radius: 2px;
+}
+
+.message-received .message-content {
+  background-color: white;
+  color: #333;
+  border: 1px solid #dee2e6;
+  border-bottom-left-radius: 2px;
+}
+
+.message-sender {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #3498db;
+}
+
+.message-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.message-time {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  text-align: right;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  padding: 10px 25px;
+  background-color: #f8f9fa;
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-style: italic;
+  border-top: 1px solid #dee2e6;
+}
+
+.typing-dots span {
+  animation: typing 1.4s infinite;
+  opacity: 0;
+}
+
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+/* Message Input */
+.message-input-container {
+  padding: 20px 25px;
+  background-color: white;
+  border-top: 1px solid #dee2e6;
+}
+
+#message-input {
+  border-radius: 25px;
+  padding: 10px 20px;
+}
+
+#message-form button {
+  border-radius: 25px;
+}
+
+/* Scrollbar Styles */
+.messages-container::-webkit-scrollbar,
+.users-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: #bdc3c7;
+  border-radius: 4px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: #95a5a6;
+}
+
+.users-section::-webkit-scrollbar-track {
+  background: #2c3e50;
+}
+
+.users-section::-webkit-scrollbar-thumb {
+  background: #34495e;
+  border-radius: 4px;
+}
+
+.users-section::-webkit-scrollbar-thumb:hover {
+  background: #3d5569;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 250px;
+  }
+
+  .message-content {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 576px) {
+  .chat-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 40vh;
+  }
+
+  .chat-main {
+    height: 60vh;
+  }
+
+  .message-content {
+    max-width: 90%;
+  }
+}
+
+/* Utility Classes */
+.text-muted {
+  color: #95a5a6 !important;
+}
+
+/* Badge Overrides */
+.badge {
+  font-size: 0.7rem;
+  padding: 4px 8px;
+}
+
+/* Button Overrides */
+.btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+/* Focus States */
+input:focus,
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}

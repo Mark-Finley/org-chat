@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Org Chat - Login</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+      <div class="col-md-5">
+        <div class="card shadow">
+          <div class="card-body p-5">
+            <!-- Header -->
+            <div class="text-center mb-4">
+              <h2 class="mb-2">🏢 Org Chat</h2>
+              <p class="text-muted">Internal Organization Communication</p>
+            </div>
+
+            <!-- Alert messages -->
+            <div id="alert-container"></div>
+
+            <!-- Login Form -->
+            <div id="login-form">
+              <h4 class="mb-3">Login</h4>
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label for="login-username" class="form-label">Username</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="login-username" 
+                    required
+                    autocomplete="username"
+                  >
+                </div>
+                <div class="mb-3">
+                  <label for="login-password" class="form-label">Password</label>
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    id="login-password" 
+                    required
+                    autocomplete="current-password"
+                  >
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                  Login
+                </button>
+              </form>
+              <div class="text-center">
+                <p class="mb-0">
+                  Don't have an account? 
+                  <a href="#" id="show-register">Register here</a>
+                </p>
+              </div>
+            </div>
+
+            <!-- Registration Form (hidden by default) -->
+            <div id="register-form" style="display: none;">
+              <h4 class="mb-3">Register</h4>
+              <form id="registerForm">
+                <div class="mb-3">
+                  <label for="register-username" class="form-label">Username</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="register-username" 
+                    required
+                    minlength="3"
+                    autocomplete="username"
+                  >
+                  <div class="form-text">At least 3 characters</div>
+                </div>
+                <div class="mb-3">
+                  <label for="register-password" class="form-label">Password</label>
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    id="register-password" 
+                    required
+                    minlength="6"
+                    autocomplete="new-password"
+                  >
+                  <div class="form-text">At least 6 characters</div>
+                </div>
+                <div class="mb-3">
+                  <label for="register-password-confirm" class="form-label">Confirm Password</label>
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    id="register-password-confirm" 
+                    required
+                    autocomplete="new-password"
+                  >
+                </div>
+                <button type="submit" class="btn btn-success w-100 mb-3">
+                  Register
+                </button>
+              </form>
+              <div class="text-center">
+                <p class="mb-0">
+                  Already have an account? 
+                  <a href="#" id="show-login">Login here</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Login/Register Logic -->
+  <script>
+    // Show/hide forms
+    document.getElementById('show-register').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('register-form').style.display = 'block';
+      clearAlerts();
+    });
+
+    document.getElementById('show-login').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('register-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'block';
+      clearAlerts();
+    });
+
+    // Helper function to show alerts
+    function showAlert(message, type = 'danger') {
+      const alertContainer = document.getElementById('alert-container');
+      alertContainer.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      `;
+    }
+
+    function clearAlerts() {
+      document.getElementById('alert-container').innerHTML = '';
+    }
+
+    // Handle login form submission
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAlerts();
+
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Redirect to chat page
+          window.location.href = '/chat.html';
+        } else {
+          showAlert(data.message);
+        }
+      } catch (error) {
+        showAlert('Connection error. Please try again.');
+      }
+    });
+
+    // Handle registration form submission
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAlerts();
+
+      const username = document.getElementById('register-username').value.trim();
+      const password = document.getElementById('register-password').value;
+      const passwordConfirm = document.getElementById('register-password-confirm').value;
+
+      // Validate password match
+      if (password !== passwordConfirm) {
+        showAlert('Passwords do not match');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Redirect to chat page
+          window.location.href = '/chat.html';
+        } else {
+          showAlert(data.message);
+        }
+      } catch (error) {
+        showAlert('Connection error. Please try again.');
+      }
+    });
+
+    // Check if user is already logged in
+    fetch('/api/auth/check')
+      .then(res => res.json())
+      .then(data => {
+        if (data.authenticated) {
+          window.location.href = '/chat.html';
+        }
+      });
+  </script>
+</body>
+</html>
