@@ -1,0 +1,24 @@
+{
+  "name": "org-chat",
+  "version": "1.0.0",
+  "description": "Internal organization chat application for local intranet",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js"
+  },
+  "keywords": ["chat", "socket.io", "express", "internal"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1",
+    "sqlite3": "^5.1.6",
+    "express-session": "^1.17.3",
+    "bcrypt": "^5.1.1",
+    "connect-sqlite3": "^0.9.13"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
